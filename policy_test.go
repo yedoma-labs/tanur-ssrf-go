@@ -87,6 +87,7 @@ func TestCheckURL(t *testing.T) {
 		{name: "ftp scheme", rawURL: "ftp://example.com/", wantCode: ErrProtocolNotAllowed},
 		{name: "gopher scheme", rawURL: "gopher://example.com/", wantCode: ErrProtocolNotAllowed},
 		{name: "file scheme", rawURL: "file:///etc/passwd", wantCode: ErrProtocolNotAllowed},
+		//nolint:gosec // G101: intentional credentials fixture
 		{name: "user and password", rawURL: "http://user:s3cretpw@example.com/", wantCode: ErrInvalidURL, noSecrets: []string{"s3cretpw", "user"}},
 		{name: "user without password", rawURL: "http://user@example.com/", wantCode: ErrInvalidURL, noSecrets: []string{"user"}},
 		{name: "empty userinfo", rawURL: "http://@example.com/", wantCode: ErrInvalidURL},

@@ -9,6 +9,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"sync"
 	"testing"
 	"time"
@@ -395,7 +396,7 @@ func TestClientIsSafeForConcurrentUse(t *testing.T) {
 func newEchoServer(t *testing.T) *httptest.Server {
 	t.Helper()
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		_, _ = fmt.Fprintf(w, "host=%s;path=%s", r.Host, r.URL.Path)
+		_, _ = fmt.Fprintf(w, "host=%s;path=%s", r.Host, r.URL.Path) //nolint:gosec // G705: plain-text test echo, not HTML
 	}))
 	t.Cleanup(srv.Close)
 	return srv
@@ -434,13 +435,5 @@ func closeBody(t *testing.T, resp *http.Response) {
 }
 
 func equalStrings(a, b []string) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i := range a {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-	return true
+	return slices.Equal(a, b)
 }
