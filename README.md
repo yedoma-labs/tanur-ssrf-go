@@ -1,4 +1,8 @@
 # tanur-ssrf-go
+<picture>
+  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/yedoma-labs/assets/main/resized/banner-resized-mobile.png">
+  <img src="https://raw.githubusercontent.com/yedoma-labs/assets/main/resized/banner-resized.png" alt="Project Header">
+</picture>
 
 An SSRF-safe `*http.Client` for Go. It is for servers that fetch URLs a user controls, such as webhooks, image URLs, link previews or import-by-URL. Standard library only, no dependencies.
 
