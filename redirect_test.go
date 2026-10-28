@@ -151,6 +151,7 @@ func TestRedirectHopsAreValidated(t *testing.T) {
 					w.WriteHeader(http.StatusFound)
 					return
 				}
+				//nolint:gosec // G705: plain-text test echo, not HTML
 				_, _ = fmt.Fprintf(w, "host=%s;path=%s", r.Host, r.URL.Path)
 			}))
 			t.Cleanup(backend.Close)
