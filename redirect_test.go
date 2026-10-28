@@ -35,6 +35,7 @@ func TestRedirectChecker(t *testing.T) {
 		{name: "internal name", rawURL: "http://db.internal/", viaLen: 1, want: ErrBlockedHostname},
 		{name: "port outside allowlist", rawURL: "http://public.test:8080/", viaLen: 1, want: ErrPortNotAllowed},
 		{name: "ftp scheme", rawURL: "ftp://public.test/", viaLen: 1, want: ErrProtocolNotAllowed},
+		//nolint:gosec // G101: intentional credentials fixture
 		{name: "credentials in hop", rawURL: "https://user:pw@public.test/", viaLen: 1, want: ErrInvalidURL},
 		{name: "fifth redirect allowed", rawURL: "https://public.test/", viaLen: 5},
 		{name: "sixth redirect refused", rawURL: "https://public.test/", viaLen: 6, want: ErrRedirectLimit},
